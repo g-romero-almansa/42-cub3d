@@ -23,8 +23,6 @@ typedef struct s_game
 	// mlx_texture_t	*t_so;
 	// mlx_image_t		*ea;
 	// mlx_texture_t	*t_mine;
-	mlx_image_t		*player;
-	mlx_texture_t	*t_player;
 	char	**map;
 	char	**only_map;
 	char	*no;
@@ -79,6 +77,7 @@ void	ft_print_screen(t_game *g);
 ////////////////////////////////////////////////////////
 //ray.c
 double	ft_generate_ray(t_game *g, double agl, double phi);
+int		ft_round_ray(double round);
 ////////////////////////////////////////////////////////
 //RayCaster
 

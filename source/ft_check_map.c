@@ -49,11 +49,14 @@ void	ft_check_texture(char *rute)
 	char	*cpy;
 	int		fd;
 	int		i;
+	int		j;
 
 	cpy = malloc (ft_strlen(rute) * sizeof(char));
 	i = -1;
+	j = -1;
 	while (rute[++i] && rute[i] != ' ' && rute[i] != '\t')
-		cpy[i] = rute[i];
+		cpy[++j] = rute[i];
+	cpy[++j] = '\0';
 	fd = open(cpy, O_RDONLY);
 	if (fd == -1)
 		ft_error(2);

@@ -46,7 +46,6 @@ void	ft_player_pov(t_game *game)
 	}
 	game->c_limit = j;
 	game->r_limit = i;
-	printf ("row:%f colum:%f\n", game->r_limit, game->c_limit);
 }
 
 void	ft_check_map(t_game *game, int start)

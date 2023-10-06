@@ -47,8 +47,7 @@ void	ft_hook(void *param)
 		exit(-33);
 	if (mlx_is_key_down(g->mlx, MLX_KEY_W))
 	{
-		if ((g->y_pos + g->y_delta > 0) && (g->x_pos - g->x_delta > 0)
-			&& g->y_pos + g->y_delta < g->r_limit && g->x_pos - g->x_delta < g->c_limit)
+		if (g->only_map[(int)(g->y_pos + g->y_delta * 0.1)][(int)(g->x_pos + g->x_delta * 0.1)] != '1')
 		{
 			g->y_pos += g->y_delta * 0.1;
 			g->x_pos += g->x_delta * 0.1;
@@ -57,8 +56,7 @@ void	ft_hook(void *param)
 	}
 	else if (mlx_is_key_down(g->mlx, MLX_KEY_S))
 	{
-		if ((g->y_pos - g->y_delta > 0) && (g->x_pos + g->x_delta > 0)
-			&& g->y_pos - g->y_delta < g->r_limit && g->x_pos + g->x_delta < g->c_limit)
+		if (g->only_map[(int)(g->y_pos - g->y_delta * 0.1)][(int)(g->x_pos - g->x_delta * 0.1)] != '1')
 		{
 			g->y_pos -= g->y_delta * 0.1;
 			g->x_pos -= g->x_delta * 0.1;
@@ -67,8 +65,7 @@ void	ft_hook(void *param)
 	}
 	else if (mlx_is_key_down(g->mlx, MLX_KEY_D))
 	{
-		if ((g->x_pos - g->y_delta > 0) && (g->y_pos - g->x_delta > 0)
-			&& g->x_pos - g->y_delta < g->c_limit && g->y_pos - g->x_delta < g->r_limit)
+		if (g->only_map[(int)(g->y_pos + g->x_delta * 0.1)][(int)(g->x_pos - g->y_delta * 0.1)] != '1')	
 		{
 			g->x_pos -= g->y_delta * 0.1;
 			g->y_pos += g->x_delta * 0.1;
@@ -77,8 +74,7 @@ void	ft_hook(void *param)
 	}
 	else if (mlx_is_key_down(g->mlx, MLX_KEY_A))
 	{
-		if ((g->x_pos + g->y_delta > 0) && (g->y_pos + g->x_delta > 0)
-			&& g->x_pos + g->y_delta < g->c_limit && g->y_pos + g->x_delta < g->r_limit)
+		if (g->only_map[(int)(g->y_pos - g->x_delta * 0.1)][(int)(g->x_pos + g->y_delta * 0.1)] != '1')
 		{
 			g->x_pos += g->y_delta * 0.1;
 			g->y_pos -= g->x_delta * 0.1;
@@ -92,7 +88,6 @@ void	ft_hook(void *param)
 			g->angle -= 2 * PI;
 		g->x_delta = cos(g->angle);
 		g->y_delta = -sin(g->angle);
-		printf("%f\n", g->angle);
 		ft_print_screen(g);
 	}
 	if (mlx_is_key_down(g->mlx, MLX_KEY_RIGHT))
@@ -103,7 +98,5 @@ void	ft_hook(void *param)
 		g->x_delta = cos(g->angle);
 		g->y_delta = -sin(g->angle);
 		ft_print_screen(g);
-		printf ("%f\n", g->angle);
 	}
-
 }

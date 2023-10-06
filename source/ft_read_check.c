@@ -131,7 +131,7 @@ void	ft_get_parameters(t_game *game)
 	if (!game->no || !game->so || !game->we || !game->ea
 		|| !game->f || !game->c)
 		ft_error(1);
-	//ft_check_parameters(game);
+	ft_check_parameters(game);
 	ft_check_map(game, bigger);
 	ft_check_borders(game, bigger);
 }

@@ -5,8 +5,6 @@ void	ft_init_cub3d(t_game *g)
 	g->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	if (!g->mlx)
 		exit(printf("\n[ERROR]: No se pudo crear MLX\n\n"));
-	g->t_player = mlx_load_png("textures/barrel.png");
-	g->player = mlx_texture_to_image(g->mlx, g->t_player);
 	g->map = NULL;
 	g->only_map = NULL;
 	g->no = NULL;
