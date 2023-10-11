@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_read_check.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gromero- <gromero-@student.42malaga.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/11 10:55:15 by gromero-          #+#    #+#             */
+/*   Updated: 2023/10/11 12:54:32 by gromero-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../include/cub3d.h"
 
 void	ft_read_map(char *map, t_game *game)
@@ -51,6 +61,58 @@ void	ft_check_newline(char *s, t_game *game)
 			ft_error(1);
 		len++;
 	}
+}
+
+void	ft_get_fcolor(t_game *g, char *s)
+{
+	int		i;
+	int		res;
+
+	i = 0;
+	res = 0;
+	while (s[i] < '0' || s[i] > '9')
+		i++;
+	while (s[i] >= '0' && s[i] <= '9')
+		res = res * 10 + (s[i++] - '0');
+	g->f_color[0] = res;
+	res = 0;
+	while (s[i] < '0' || s[i] > '9')
+		i++;
+	while (s[i] >= '0' && s[i] <= '9')
+		res = res * 10 + (s[i++] - '0');
+	g->f_color[1] = res;
+	res = 0;
+	while (s[i] < '0' || s[i] > '9')
+		i++;
+	while (s[i] >= '0' && s[i] <= '9')
+		res = res * 10 + (s[i++] - '0');
+	g->f_color[2] = res;
+}
+
+void	ft_get_ccolor(t_game *g, char *s)
+{
+	int		i;
+	int		res;
+
+	i = 0;
+	res = 0;
+	while (s[i] < '0' || s[i] > '9')
+		i++;
+	while (s[i] >= '0' && s[i] <= '9')
+		res = res * 10 + (s[i++] - '0');
+	g->c_color[0] = res;
+	res = 0;
+	while (s[i] < '0' || s[i] > '9')
+		i++;
+	while (s[i] >= '0' && s[i] <= '9')
+		res = res * 10 + (s[i++] - '0');
+	g->c_color[1] = res;
+	res = 0;
+	while (s[i] < '0' || s[i] > '9')
+		i++;
+	while (s[i] >= '0' && s[i] <= '9')
+		res = res * 10 + (s[i++] - '0');
+	g->c_color[2] = res;
 }
 
 void	ft_get_parameters(t_game *game)
@@ -108,6 +170,7 @@ void	ft_get_parameters(t_game *game)
 				{
 					game->f = ft_strdup(game->map[i]);
 					ft_check_color(game->f, 'F');
+					ft_get_fcolor(game, game->f);
 				}
 				else
 					ft_error(1);
@@ -120,6 +183,7 @@ void	ft_get_parameters(t_game *game)
 				{
 					game->c = ft_strdup(game->map[i]);
 					ft_check_color(game->c, 'C');
+					ft_get_ccolor(game, game->c);
 				}
 				else
 					ft_error(1);

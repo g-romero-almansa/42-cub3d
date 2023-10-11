@@ -1,10 +1,11 @@
-NO            				textures/1.png
-SO ./textures/2.png
-WE ./textures/3.png
-EA ./textures/4.png
+NO            				/Users/gromero-/cursus/cub3d/textures/n.png
+SO /Users/gromero-/cursus/cub3d/textures/s.png
+WE /Users/gromero-/cursus/cub3d/textures/w.png
+EA /Users/gromero-/cursus/cub3d/textures/e.png
 
-  F 164,169,20
+  F 		164   ,   169,    20		
 C 153,204,255
+
 
 111111111111111111111
 101000001000000000001
@@ -27,3 +28,10 @@ C 153,204,255
 101010111011111111101
 1N1000001000000000001
 111111111111111111111
+
+
+
+
+
+
+

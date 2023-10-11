@@ -16,9 +16,9 @@ void	ft_print_screen(t_game *g)
 		{
 			if (j <= (HEIGHT / 2 - (t / 2)))
 			{
-				g->img->pixels[WIDTH * j * 4 + i * 4 + 0] = 0;
-				g->img->pixels[WIDTH * j * 4 + i * 4 + 1] = 0;
-				g->img->pixels[WIDTH * j * 4 + i * 4 + 2] = 255;
+				g->img->pixels[WIDTH * j * 4 + i * 4 + 0] = g->c_color[0];
+				g->img->pixels[WIDTH * j * 4 + i * 4 + 1] = g->c_color[1];
+				g->img->pixels[WIDTH * j * 4 + i * 4 + 2] = g->c_color[2];
 				g->img->pixels[WIDTH * j * 4 + i * 4 + 3] = 255;	
 			}
 			else if (j > (HEIGHT / 2 - (t / 2)) && j < (HEIGHT / 2 + (t / 2)))
@@ -30,9 +30,9 @@ void	ft_print_screen(t_game *g)
 			}
 			else
 			{
-				g->img->pixels[WIDTH * j * 4 + i * 4 + 0] = 0;
-				g->img->pixels[WIDTH * j * 4 + i * 4 + 1] = 255;
-				g->img->pixels[WIDTH * j * 4 + i * 4 + 2] = 0;
+				g->img->pixels[WIDTH * j * 4 + i * 4 + 0] = g->f_color[0];
+				g->img->pixels[WIDTH * j * 4 + i * 4 + 1] = g->f_color[1];
+				g->img->pixels[WIDTH * j * 4 + i * 4 + 2] = g->f_color[2];
 				g->img->pixels[WIDTH * j * 4 + i * 4 + 3] = 255;
 			}
 		}

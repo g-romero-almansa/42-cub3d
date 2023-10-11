@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gromero- <gromero-@student.42malaga.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/11 10:54:06 by gromero-          #+#    #+#             */
+/*   Updated: 2023/10/11 12:49:28 by gromero-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../include/cub3d.h"
 
 void	ft_error(int e)
@@ -28,9 +38,36 @@ void	ft_free(t_game *game)
 	free(game->ea);
 	free(game->f);
 	free(game->c);
+	free(game->f_color);
+	free(game->c_color);
 	free(game->map);
 	free(game->only_map);
 	free(game);
+}
+
+void	ft_init_cub3d(t_game *g)
+{
+	g->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
+	if (!g->mlx)
+		exit(printf("\n[ERROR]: No se pudo crear MLX\n\n"));
+	g->map = NULL;
+	g->only_map = NULL;
+	g->no = NULL;
+	g->so = NULL;
+	g->ea = NULL;
+	g->we = NULL;
+	g->x_player = 0;
+	g->y_player = 0;
+	g->r_limit = 0;
+	g->c_limit = 0;
+	g->x_pos = 0;
+	g->y_pos = 0;
+	g->x_delta = 0;
+	g->y_delta = 0;
+	g->angle = 0;
+	g->img = mlx_new_image(g->mlx, 0x400, 0x400);
+	g->f_color = malloc(3 * sizeof(int));
+	g->c_color = malloc(3 * sizeof(int));
 }
 
 double	ft_get_ray_angle(int i)
@@ -50,10 +87,9 @@ void	ft_leaks()
 
 int	main(int argc, char **argv)
 {
-	//atexit(ft_leaks);
+	atexit(ft_leaks);
 	t_game	g;
 
-	//(void)argv;
 	if (argc != 2)
 		ft_error(0);
 	ft_init_cub3d(&g);

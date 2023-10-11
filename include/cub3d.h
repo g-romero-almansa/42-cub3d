@@ -19,10 +19,6 @@ typedef struct s_game
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	mlx_texture_t	*t_no;
-	// mlx_image_t		*so;
-	// mlx_texture_t	*t_so;
-	// mlx_image_t		*ea;
-	// mlx_texture_t	*t_mine;
 	char	**map;
 	char	**only_map;
 	char	*no;
@@ -31,6 +27,8 @@ typedef struct s_game
 	char	*we;
 	char	*f;
 	char	*c;
+	int		*f_color;
+	int		*c_color;
 	int		x_player;
 	int		y_player;
 	double	r_limit;
@@ -67,10 +65,7 @@ void	ft_check_texture(char *rute);
 void	ft_player_pov(t_game *game);
 void	ft_check_map(t_game *game, int start);
 void	ft_check_borders(t_game *game, int bigger);
-char	**ft_split(char const *s, char c);
-//init_cub3d
-void	ft_init_cub3d(t_game *g);
-////////////////////////////////////////////////////////
+
 //hooks
 void	ft_hook(void *param);
 void	ft_print_screen(t_game *g);
