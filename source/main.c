@@ -6,7 +6,7 @@
 /*   By: gromero- <gromero-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 10:54:06 by gromero-          #+#    #+#             */
-/*   Updated: 2023/10/13 11:48:31 by gromero-         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:01:55 by gromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/cub3d.h"
@@ -32,11 +32,11 @@ void	ft_free(t_game *game)
 	i = -1;
 	while (game->only_map[++i])
 		free(game->only_map[i]);
-	//mlx_delete_texture(game->texture);
-	/*mlx_delete_image(game->mlx, game->t_no);
+	mlx_delete_texture(game->texture);
+	mlx_delete_image(game->mlx, game->t_no);
 	mlx_delete_image(game->mlx, game->t_so);
 	mlx_delete_image(game->mlx, game->t_ea);
-	mlx_delete_image(game->mlx, game->t_we);*/
+	mlx_delete_image(game->mlx, game->t_we);
 	free(game->no);
 	free(game->so);
 	free(game->we);
@@ -47,7 +47,7 @@ void	ft_free(t_game *game)
 	free(game->c_color);
 	free(game->map);
 	free(game->only_map);
-	free(game);
+	//free(game);
 }
 
 void	ft_init_cub3d(t_game *g)

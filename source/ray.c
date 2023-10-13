@@ -117,16 +117,15 @@ double	ft_generate_ray(t_game *g, double agl, double phi, char *c)
 	}
 	if (x_h > y_h)
 	{
-		if (g->y_delta >= 0)
+		if (y_ray >= 0)
 			*c = 'n';
 		else
 			*c = 's';
-		//g->t_location = tpm;
 		return (y_h * cos(phi));
 	}
 	else
 	{
-		if (g->x_delta > 0)
+		if (x_ray >= 0 )
 			*c = 'w';
 		else
 			*c = 'e';

@@ -17,7 +17,6 @@ void	ft_print_screen(t_game *g)
 	{
 		t = 300 / ft_generate_ray(g, g->angle + ft_get_ray_angle(i), ft_get_ray_angle(i), &c);
 		j = -1;
-		printf ("location:%f i:%d\n", g->t_location, i);
 		while (++j < 1024)
 		{
 			k = (j - (HEIGHT / 2 - (t / 2))) / t * g->t_no->height;
@@ -31,10 +30,34 @@ void	ft_print_screen(t_game *g)
 			}
 			else if (j > (HEIGHT / 2 - (t / 2)) && j < (HEIGHT / 2 + (t / 2)))
 			{
-				g->img->pixels[WIDTH * j * 4 + i * 4 + 0] = g->t_no->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 0];
-				g->img->pixels[WIDTH * j * 4 + i * 4 + 1] = g->t_no->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 1];
-				g->img->pixels[WIDTH * j * 4 + i * 4 + 2] = g->t_no->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 2];
-				g->img->pixels[WIDTH * j * 4 + i * 4 + 3] = g->t_no->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 3];
+				if (c == 'n')
+				{
+					g->img->pixels[WIDTH * j * 4 + i * 4 + 0] = g->t_no->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 0];
+					g->img->pixels[WIDTH * j * 4 + i * 4 + 1] = g->t_no->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 1];
+					g->img->pixels[WIDTH * j * 4 + i * 4 + 2] = g->t_no->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 2];
+					g->img->pixels[WIDTH * j * 4 + i * 4 + 3] = g->t_no->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 3];
+				}
+				else if (c == 's')
+				{
+					g->img->pixels[WIDTH * j * 4 + i * 4 + 0] = g->t_so->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 0];
+					g->img->pixels[WIDTH * j * 4 + i * 4 + 1] = g->t_so->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 1];
+					g->img->pixels[WIDTH * j * 4 + i * 4 + 2] = g->t_so->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 2];
+					g->img->pixels[WIDTH * j * 4 + i * 4 + 3] = g->t_so->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 3];
+				}
+				else if (c == 'e')
+				{
+					g->img->pixels[WIDTH * j * 4 + i * 4 + 0] = g->t_ea->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 0];
+					g->img->pixels[WIDTH * j * 4 + i * 4 + 1] = g->t_ea->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 1];
+					g->img->pixels[WIDTH * j * 4 + i * 4 + 2] = g->t_ea->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 2];
+					g->img->pixels[WIDTH * j * 4 + i * 4 + 3] = g->t_ea->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 3];
+				}
+				else if (c == 'w')
+				{
+					g->img->pixels[WIDTH * j * 4 + i * 4 + 0] = g->t_we->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 0];
+					g->img->pixels[WIDTH * j * 4 + i * 4 + 1] = g->t_we->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 1];
+					g->img->pixels[WIDTH * j * 4 + i * 4 + 2] = g->t_we->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 2];
+					g->img->pixels[WIDTH * j * 4 + i * 4 + 3] = g->t_we->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 3];
+				}
 			}
 			else
 			{
