@@ -47,10 +47,8 @@ int		ft_round_ray(double round)
 	else
 		return ((int)round + 1);
 }
-//Meter if para no hacer y_h en caso de 0 y PI
-//y para x_h en caso de PI/2 y 3PI/2
 
-double	ft_generate_ray(t_game *g, double agl, double phi)
+double	ft_generate_ray(t_game *g, double agl, double phi, char *c)
 {
 	double	y_dis;
 	double	y_h;
@@ -77,6 +75,7 @@ double	ft_generate_ray(t_game *g, double agl, double phi)
 	else
 		i = ft_round_ray(y_h * y_ray + g->y_pos);
 	j = y_h * x_ray + g->x_pos;
+	g->t_location = (y_h * x_ray + g->x_pos);
 	while (i > 0 && ft_round_ray(j) > 0 && i < g->r_limit && ft_round_ray(j) < g->c_limit
 			&& g->only_map[i][ft_round_ray(j)] != '1')
 	{
@@ -86,11 +85,14 @@ double	ft_generate_ray(t_game *g, double agl, double phi)
 		else
 			i++;
 		j = (y_h * x_ray + g->x_pos);
+		g->t_location = (y_h * x_ray + g->x_pos);
 	}
-	
+
 	double	x_dis;
 	double	x_h;
+	double	tpm;
 
+	tpm = 0;
 	if (x_ray > 0)
 		x_dis = (int)g->x_pos + 1 - g->x_pos;
 	else
@@ -101,6 +103,7 @@ double	ft_generate_ray(t_game *g, double agl, double phi)
 	else
 		j = ft_round_ray(x_h * x_ray + g->x_pos);
 	i = x_h * y_ray + g->y_pos;
+	tpm = (x_h * y_ray + g->y_pos);
 	while (ft_round_ray(i) > 0 && j > 0 && ft_round_ray(i) < g->r_limit && j < g->c_limit
 			&& g->only_map[ft_round_ray(i)][j] != '1')
 	{
@@ -110,9 +113,24 @@ double	ft_generate_ray(t_game *g, double agl, double phi)
 		else
 			j++;
 		i = (x_h * y_ray + g->y_pos);
+		tpm = (x_h * y_ray + g->y_pos);
 	}
 	if (x_h > y_h)
+	{
+		if (g->y_delta >= 0)
+			*c = 'n';
+		else
+			*c = 's';
+		//g->t_location = tpm;
 		return (y_h * cos(phi));
+	}
 	else
+	{
+		if (g->x_delta > 0)
+			*c = 'w';
+		else
+			*c = 'e';
+		g->t_location = tpm;
 		return (x_h * cos(phi));
+	}
 }

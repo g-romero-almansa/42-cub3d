@@ -1,13 +1,12 @@
-   WE                            textures/wolfenstein/grey_stone.xpm
-NO      textures/wolfenstein/purple_stone.xpm
+   WE /Users/gromero-/cursus/cub3d/textures/w.png
+NO            				/Users/gromero-/cursus/cub3d/textures/n.png
 
 
-
-SO textures/wolfenstein/red_brick.xpm
+SO /Users/gromero-/cursus/cub3d/textures/s.png
 
 F      17,    38,     64
 
-EA textures/wolfenstein/wood.xpm
+EA /Users/gromero-/cursus/cub3d/textures/e.png
 
 
 

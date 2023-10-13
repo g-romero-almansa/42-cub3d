@@ -6,14 +6,22 @@ void	ft_print_screen(t_game *g)
 	int		j;
 	int		i;
 	double	t;
+	char	c;
+	double	k;
+	double	n;
 
 	i = -1;
+	c = 0;
+	k = 0;
 	while (++i < 1024)
 	{
-		t = 300 / ft_generate_ray(g, g->angle + ft_get_ray_angle(i), ft_get_ray_angle(i));
+		t = 300 / ft_generate_ray(g, g->angle + ft_get_ray_angle(i), ft_get_ray_angle(i), &c);
 		j = -1;
+		printf ("location:%f i:%d\n", g->t_location, i);
 		while (++j < 1024)
 		{
+			k = (j - (HEIGHT / 2 - (t / 2))) / t * g->t_no->height;
+			n = (g->t_location - (int)g->t_location) * g->t_no->width;
 			if (j <= (HEIGHT / 2 - (t / 2)))
 			{
 				g->img->pixels[WIDTH * j * 4 + i * 4 + 0] = g->c_color[0];
@@ -23,10 +31,10 @@ void	ft_print_screen(t_game *g)
 			}
 			else if (j > (HEIGHT / 2 - (t / 2)) && j < (HEIGHT / 2 + (t / 2)))
 			{
-				g->img->pixels[WIDTH * j * 4 + i * 4 + 0] = 0;
-				g->img->pixels[WIDTH * j * 4 + i * 4 + 1] = 0;
-				g->img->pixels[WIDTH * j * 4 + i * 4 + 2] = 0;
-				g->img->pixels[WIDTH * j * 4 + i * 4 + 3] = 255;
+				g->img->pixels[WIDTH * j * 4 + i * 4 + 0] = g->t_no->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 0];
+				g->img->pixels[WIDTH * j * 4 + i * 4 + 1] = g->t_no->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 1];
+				g->img->pixels[WIDTH * j * 4 + i * 4 + 2] = g->t_no->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 2];
+				g->img->pixels[WIDTH * j * 4 + i * 4 + 3] = g->t_no->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 3];
 			}
 			else
 			{

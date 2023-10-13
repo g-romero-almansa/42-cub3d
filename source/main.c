@@ -6,7 +6,7 @@
 /*   By: gromero- <gromero-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 10:54:06 by gromero-          #+#    #+#             */
-/*   Updated: 2023/10/11 12:49:28 by gromero-         ###   ########.fr       */
+/*   Updated: 2023/10/13 11:48:31 by gromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/cub3d.h"
@@ -32,6 +32,11 @@ void	ft_free(t_game *game)
 	i = -1;
 	while (game->only_map[++i])
 		free(game->only_map[i]);
+	//mlx_delete_texture(game->texture);
+	/*mlx_delete_image(game->mlx, game->t_no);
+	mlx_delete_image(game->mlx, game->t_so);
+	mlx_delete_image(game->mlx, game->t_ea);
+	mlx_delete_image(game->mlx, game->t_we);*/
 	free(game->no);
 	free(game->so);
 	free(game->we);
@@ -50,6 +55,17 @@ void	ft_init_cub3d(t_game *g)
 	g->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	if (!g->mlx)
 		exit(printf("\n[ERROR]: No se pudo crear MLX\n\n"));
+	g->texture = mlx_load_png("/Users/gromero-/cursus/cub3d/textures/n.png");
+	g->t_no = mlx_texture_to_image(g->mlx, g->texture);
+	mlx_delete_texture(g->texture);
+	g->texture = mlx_load_png("/Users/gromero-/cursus/cub3d/textures/s.png");
+	g->t_so = mlx_texture_to_image(g->mlx, g->texture);
+	mlx_delete_texture(g->texture);
+	g->texture = mlx_load_png("/Users/gromero-/cursus/cub3d/textures/e.png");
+	g->t_ea = mlx_texture_to_image(g->mlx, g->texture);
+	mlx_delete_texture(g->texture);
+	g->texture = mlx_load_png("/Users/gromero-/cursus/cub3d/textures/w.png");
+	g->t_we = mlx_texture_to_image(g->mlx, g->texture);
 	g->map = NULL;
 	g->only_map = NULL;
 	g->no = NULL;
@@ -64,8 +80,9 @@ void	ft_init_cub3d(t_game *g)
 	g->y_pos = 0;
 	g->x_delta = 0;
 	g->y_delta = 0;
-	g->angle = 0;
-	g->img = mlx_new_image(g->mlx, 0x400, 0x400);
+	g->angle = 0;	
+	g->t_location = 0;
+	g->img = mlx_new_image(g->mlx, WIDTH, HEIGHT);
 	g->f_color = malloc(3 * sizeof(int));
 	g->c_color = malloc(3 * sizeof(int));
 }

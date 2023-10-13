@@ -18,7 +18,11 @@ typedef struct s_game
 	double			delta;
 	mlx_t			*mlx;
 	mlx_image_t		*img;
-	mlx_texture_t	*t_no;
+	mlx_texture_t	*texture;
+	mlx_image_t		*t_no;
+	mlx_image_t		*t_so;
+	mlx_image_t		*t_ea;
+	mlx_image_t		*t_we;
 	char	**map;
 	char	**only_map;
 	char	*no;
@@ -37,7 +41,8 @@ typedef struct s_game
 	double	y_pos;
 	double	x_delta;
 	double	y_delta;
-	double	angle;
+	double	angle;;
+	double	t_location;
 }	t_game;
 
 /*MAIN.C*/
@@ -71,7 +76,7 @@ void	ft_hook(void *param);
 void	ft_print_screen(t_game *g);
 ////////////////////////////////////////////////////////
 //ray.c
-double	ft_generate_ray(t_game *g, double agl, double phi);
+double	ft_generate_ray(t_game *g, double agl, double phi, char *c);
 int		ft_round_ray(double round);
 ////////////////////////////////////////////////////////
 //RayCaster
