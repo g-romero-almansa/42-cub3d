@@ -6,7 +6,7 @@
 /*   By: gromero- <gromero-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 10:54:54 by gromero-          #+#    #+#             */
-/*   Updated: 2023/10/14 12:19:36 by gromero-         ###   ########.fr       */
+/*   Updated: 2023/10/14 13:59:17 by gromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/cub3d.h"
@@ -54,22 +54,8 @@ void	ft_check_texture_format(char *s, char *f, t_game *g, int x)
 	ft_check_texture((s + i), g, x);
 }
 
-void	ft_check_texture(char *rute, t_game *g, int x)
+void	ft_texture_route(t_game *g, int x, char *cpy)
 {
-	char	*cpy;
-	int		fd;
-	int		i;
-	int		j;
-
-	cpy = malloc (ft_strlen(rute) * sizeof(char));
-	i = -1;
-	j = -1;
-	while (rute[++i] && rute[i] != ' ' && rute[i] != '\t')
-		cpy[++j] = rute[i];
-	cpy[++j] = '\0';
-	fd = open(cpy, O_RDONLY);
-	if (fd == -1)
-		ft_error(2);
 	if (x == 1)
 	{
 		free (g->no);
@@ -90,5 +76,24 @@ void	ft_check_texture(char *rute, t_game *g, int x)
 		free (g->we);
 		g->we = cpy;
 	}
+}
+
+void	ft_check_texture(char *rute, t_game *g, int x)
+{
+	char	*cpy;
+	int		fd;
+	int		i;
+	int		j;
+
+	cpy = malloc (ft_strlen(rute) * sizeof(char));
+	i = -1;
+	j = -1;
+	while (rute[++i] && rute[i] != ' ' && rute[i] != '\t')
+		cpy[++j] = rute[i];
+	cpy[++j] = '\0';
+	fd = open(cpy, O_RDONLY);
+	if (fd == -1)
+		ft_error(2);
+	ft_texture_route(g, x, cpy);
 	close(fd);
 }

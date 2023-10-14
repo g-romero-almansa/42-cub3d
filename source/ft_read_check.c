@@ -6,7 +6,7 @@
 /*   By: gromero- <gromero-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 10:55:15 by gromero-          #+#    #+#             */
-/*   Updated: 2023/10/11 12:54:32 by gromero-         ###   ########.fr       */
+/*   Updated: 2023/10/14 13:52:59 by gromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/cub3d.h"
@@ -128,68 +128,9 @@ void	ft_get_parameters(t_game *game)
 		j = -1;
 		while (game->map[i][++j])
 		{
-			if (game->map[i][j] == 'N' && game->map[i][j + 1] == 'O')
-			{
-				if (!game->no)
-					game->no = ft_strdup(game->map[i]);
-				else
-					ft_error(1);
-				if (bigger < i)
-					bigger = i;
-			}
-			else if (game->map[i][j] == 'S' && game->map[i][j + 1] == 'O')
-			{
-				if (!game->so)
-					game->so = ft_strdup(game->map[i]);
-				else
-					ft_error(1);
-				if (bigger < i)
-					bigger = i;
-			}
-			else if (game->map[i][j] == 'W' && game->map[i][j + 1] == 'E')
-			{
-				if (!game->we)
-					game->we = ft_strdup(game->map[i]);
-				else
-					ft_error(1);
-				if (bigger < i)
-					bigger = i;
-			}
-			else if (game->map[i][j] == 'E' && game->map[i][j + 1] == 'A')
-			{
-				if (!game->ea)
-					game->ea = ft_strdup(game->map[i]);
-				else
-					ft_error(1);
-				if (bigger < i)
-					bigger = i;
-			}
-			else if (game->map[i][j] == 'F')
-			{
-				if (!game->f)
-				{
-					game->f = ft_strdup(game->map[i]);
-					ft_check_color(game->f, 'F');
-					ft_get_fcolor(game, game->f);
-				}
-				else
-					ft_error(1);
-				if (bigger < i)
-					bigger = i;
-			}
-			else if (game->map[i][j] == 'C')
-			{
-				if (!game->c)
-				{
-					game->c = ft_strdup(game->map[i]);
-					ft_check_color(game->c, 'C');
-					ft_get_ccolor(game, game->c);
-				}
-				else
-					ft_error(1);
-				if (bigger < i)
-					bigger = i;
-			}
+			ft_get_no_so(game, i, j, &bigger);
+			ft_get_we_ea(game, i, j, &bigger);
+			ft_get_c_f(game, i, j, &bigger);
 		}
 	}
 	if (!game->no || !game->so || !game->we || !game->ea

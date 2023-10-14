@@ -6,10 +6,38 @@
 /*   By: gromero- <gromero-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 10:55:07 by gromero-          #+#    #+#             */
-/*   Updated: 2023/10/11 10:55:09 by gromero-         ###   ########.fr       */
+/*   Updated: 2023/10/14 14:14:48 by gromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/cub3d.h"
+
+void	ft_player_pov2(t_game *game, int i, int j)
+{
+	if (game->only_map[i][j] == 'N')
+	{
+		game->x_delta = 0;
+		game->y_delta = -1;
+		game->angle = PI / 2;
+	}
+	else if (game->only_map[i][j] == 'S')
+	{
+		game->x_delta = 0;
+		game->y_delta = 1;
+		game->angle = 3 * PI / 2;
+	}
+	else if (game->only_map[i][j] == 'W')
+	{
+		game->x_delta = -1;
+		game->y_delta = 0;
+		game->angle = PI;
+	}
+	else if (game->only_map[i][j] == 'E')
+	{
+		game->x_delta = 1;
+		game->y_delta = 0;
+		game->angle = 0;
+	}
+}
 
 void	ft_player_pov(t_game *game)
 {
@@ -28,34 +56,28 @@ void	ft_player_pov(t_game *game)
 				game->x_pos = j + 0.5;
 				game->y_pos = i + 0.5;
 			}
-			if (game->only_map[i][j] == 'N')
-			{
-				game->x_delta = 0;
-				game->y_delta = -1;
-				game->angle = PI / 2;	
-			}
-			else if (game->only_map[i][j] == 'S')
-			{
-				game->x_delta = 0;
-				game->y_delta = 1;
-				game->angle = 3 * PI / 2;
-			}
-			else if (game->only_map[i][j] == 'W')
-			{
-				game->x_delta = -1;
-				game->y_delta = 0;
-				game->angle = PI;
-			}
-			else if (game->only_map[i][j] == 'E')
-			{
-				game->x_delta = 1;
-				game->y_delta = 0;
-				game->angle = 0;
-			}
+			ft_player_pov2(game, i, j);
 		}
 	}
 	game->c_limit = j;
 	game->r_limit = i;
+}
+
+void	ft_check_map2(t_game *game, int i, int j, int *check)
+{
+	if (game->map[i][j] == 'N' || game->map[i][j] == 'S'
+		|| game->map[i][j] == 'W' || game->map[i][j] == 'E')
+	{
+		(*check)++;
+		game->x_player = j;
+		game->y_player = i;
+	}
+	if (game->map[i][j] != 'N' && game->map[i][j] != 'S'
+		&& game->map[i][j] != 'W' && game->map[i][j] != 'E'
+		&& game->map[i][j] != '1' && game->map[i][j] != '0'
+		&& game->map[i][j] != ' ' && game->map[i][j] != '\n'
+		&& game->map[i][j] != '\t')
+		ft_error(1);
 }
 
 void	ft_check_map(t_game *game, int start)
@@ -70,22 +92,7 @@ void	ft_check_map(t_game *game, int start)
 	{
 		j = -1;
 		while (game->map[i][++j])
-		{
-			if (game->map[i][j] == 'N' || game->map[i][j] == 'S'
-				|| game->map[i][j] == 'W' || game->map[i][j] == 'E')
-			{
-				check++;
-				//ft_player_pov(game, game->map[i][j], j, i);
-				game->x_player = j;
-				game->y_player = i;
-			}
-			if (game->map[i][j] != 'N' && game->map[i][j] != 'S'
-				&& game->map[i][j] != 'W' && game->map[i][j] != 'E'
-				&& game->map[i][j] != '1' && game->map[i][j] != '0'
-				&& game->map[i][j] != ' ' && game->map[i][j] != '\n'
-				&& game->map[i][j] != '\t')
-				ft_error(1);
-		}
+			ft_check_map2(game, i, j, &check);
 	}
 	if (check != 1 || game->map[game->y_player + 1][game->x_player] == ' '
 		|| game->map[game->y_player + 1][game->x_player] == '\n'
@@ -98,28 +105,29 @@ void	ft_check_map(t_game *game, int start)
 		ft_error(1);
 }
 
-void	ft_check_borders(t_game *game, int bigger)
+void	ft_check_borders(t_game *g, int b)
 {
 	int		j;
 	int		check;
 
-	check = bigger + 1;
-	while (game->map[++bigger])
+	check = b + 1;
+	while (g->map[++b])
 	{
 		j = -1;
-		while (game->map[bigger][++j])
+		while (g->map[b][++j])
 		{
-			if (game->map[bigger][j] == '0' && (bigger == check || !game->map[bigger + 1]))
+			if (g->map[b][j] == '0'
+				&& (b == check || !g->map[b + 1]))
 				ft_error(1);
-			if (game->map[bigger][j] == '0' && (game->map[bigger][j + 1] == ' '
-				|| game->map[bigger][j + 1] == '\n' || game->map[bigger][j + 1] == '\t'
-				|| game->map[bigger][j + 1] == '\0' || game->map[bigger][j - 1] == ' '
-				|| game->map[bigger][j - 1] == '\n' || game->map[bigger][j - 1] == '\t'
-				|| game->map[bigger][j - 1] == '\0' || game->map[bigger + 1][j] == ' '
-				|| game->map[bigger + 1][j] == '\n' || game->map[bigger + 1][j] == '\t'
-				|| game->map[bigger + 1][j] == '\0' || game->map[bigger - 1][j] == ' '
-				|| game->map[bigger - 1][j] == '\n' || game->map[bigger - 1][j] == '\t'
-				|| game->map[bigger - 1][j] == '\0'))
+			if (g->map[b][j] == '0' && (g->map[b][j + 1] == ' '
+				|| g->map[b][j + 1] == '\n' || g->map[b][j + 1] == '\t'
+				|| g->map[b][j + 1] == '\0' || g->map[b][j - 1] == ' '
+				|| g->map[b][j - 1] == '\n' || g->map[b][j - 1] == '\t'
+				|| g->map[b][j - 1] == '\0' || g->map[b + 1][j] == ' '
+				|| g->map[b + 1][j] == '\n' || g->map[b + 1][j] == '\t'
+				|| g->map[b + 1][j] == '\0' || g->map[b - 1][j] == ' '
+				|| g->map[b - 1][j] == '\n' || g->map[b - 1][j] == '\t'
+				|| g->map[b - 1][j] == '\0'))
 				ft_error(1);
 		}
 	}

@@ -58,18 +58,26 @@ void	ft_strcmp_ext(char *map, char *cmp);
 /*FT_READ_CHECK.C*/
 void	ft_read_map(char *map, t_game *game);
 void	ft_check_newline(char *s, t_game *game);
+void	ft_get_fcolor(t_game *g, char *s);
+void	ft_get_ccolor(t_game *g, char *s);
 void	ft_get_parameters(t_game *game);
+
+/*FT_GET_ALL_PARAMETERS.C*/
+void	ft_get_no_so(t_game *game, int i, int j, int *bigger);
+void	ft_get_we_ea(t_game *game, int i, int j, int *bigger);
+void	ft_get_c_f(t_game *game, int i, int j, int *bigger);
 
 /*FT_CHECK_MAP.C*/
 void	ft_check_color(char *s, char c);
 void	ft_check_parameters(t_game *game);
 void	ft_check_texture_format(char *s, char *f, t_game *g, int x);
+void	ft_texture_route(t_game *g, int x, char *cpy);
 void	ft_check_texture(char *rute, t_game *g, int x);
 
 /*FT_CHECK_MAP_FORMAT.C*/
 void	ft_player_pov(t_game *game);
 void	ft_check_map(t_game *game, int start);
-void	ft_check_borders(t_game *game, int bigger);
+void	ft_check_borders(t_game *g, int b);
 
 //hooks
 void	ft_hook(void *param);

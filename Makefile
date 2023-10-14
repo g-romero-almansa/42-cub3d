@@ -15,7 +15,7 @@ DIR_SRC			=	./source/
 SRC				= 	$(DIR_SRC)get_next_line.c $(DIR_SRC)get_next_line_utils.c \
 					$(DIR_SRC)main.c $(DIR_SRC)ft_utils.c $(DIR_SRC)ft_read_check.c \
 					$(DIR_SRC)ft_check_map.c $(DIR_SRC)ft_check_map_format.c \
-					$(DIR_SRC)ft_hooks.c $(DIR_SRC)minimap.c $(DIR_SRC)ray.c
+					$(DIR_SRC)ft_hooks.c $(DIR_SRC)ft_ray.c $(DIR_SRC)ft_get_all_parameters.c
 # COLORS
 GREEN = `tput setaf 2`
 RED = `tput setaf 1`
