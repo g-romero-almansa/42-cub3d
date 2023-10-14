@@ -6,7 +6,7 @@
 /*   By: gromero- <gromero-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 10:54:06 by gromero-          #+#    #+#             */
-/*   Updated: 2023/10/13 16:01:55 by gromero-         ###   ########.fr       */
+/*   Updated: 2023/10/14 12:18:50 by gromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/cub3d.h"
@@ -55,17 +55,6 @@ void	ft_init_cub3d(t_game *g)
 	g->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	if (!g->mlx)
 		exit(printf("\n[ERROR]: No se pudo crear MLX\n\n"));
-	g->texture = mlx_load_png("/Users/gromero-/cursus/cub3d/textures/n.png");
-	g->t_no = mlx_texture_to_image(g->mlx, g->texture);
-	mlx_delete_texture(g->texture);
-	g->texture = mlx_load_png("/Users/gromero-/cursus/cub3d/textures/s.png");
-	g->t_so = mlx_texture_to_image(g->mlx, g->texture);
-	mlx_delete_texture(g->texture);
-	g->texture = mlx_load_png("/Users/gromero-/cursus/cub3d/textures/e.png");
-	g->t_ea = mlx_texture_to_image(g->mlx, g->texture);
-	mlx_delete_texture(g->texture);
-	g->texture = mlx_load_png("/Users/gromero-/cursus/cub3d/textures/w.png");
-	g->t_we = mlx_texture_to_image(g->mlx, g->texture);
 	g->map = NULL;
 	g->only_map = NULL;
 	g->no = NULL;
@@ -102,6 +91,21 @@ void	ft_leaks()
 	system("leaks -q cub3d");
 }
 
+void	ft_init_textures(t_game *g)
+{
+	g->texture = mlx_load_png(g->no);
+	g->t_no = mlx_texture_to_image(g->mlx, g->texture);
+	mlx_delete_texture(g->texture);
+	g->texture = mlx_load_png(g->so);
+	g->t_so = mlx_texture_to_image(g->mlx, g->texture);
+	mlx_delete_texture(g->texture);
+	g->texture = g->texture = mlx_load_png(g->ea);
+	g->t_ea = mlx_texture_to_image(g->mlx, g->texture);
+	mlx_delete_texture(g->texture);
+	g->texture = mlx_load_png(g->we);
+	g->t_we = mlx_texture_to_image(g->mlx, g->texture);
+}
+
 int	main(int argc, char **argv)
 {
 	atexit(ft_leaks);
@@ -115,6 +119,7 @@ int	main(int argc, char **argv)
 	ft_get_parameters(&g);
 	ft_player_pov(&g);
 	mlx_image_to_window(g.mlx, g.img, 0, 0);
+	ft_init_textures(&g);
 	ft_print_screen(&g);
 	mlx_loop_hook(g.mlx, ft_hook, &g);
 	mlx_loop(g.mlx);

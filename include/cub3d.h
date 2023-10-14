@@ -63,8 +63,8 @@ void	ft_get_parameters(t_game *game);
 /*FT_CHECK_MAP.C*/
 void	ft_check_color(char *s, char c);
 void	ft_check_parameters(t_game *game);
-void	ft_check_texture_format(char *s, char *f);
-void	ft_check_texture(char *rute);
+void	ft_check_texture_format(char *s, char *f, t_game *g, int x);
+void	ft_check_texture(char *rute, t_game *g, int x);
 
 /*FT_CHECK_MAP_FORMAT.C*/
 void	ft_player_pov(t_game *game);

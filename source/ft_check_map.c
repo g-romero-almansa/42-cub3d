@@ -6,7 +6,7 @@
 /*   By: gromero- <gromero-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 10:54:54 by gromero-          #+#    #+#             */
-/*   Updated: 2023/10/11 10:54:56 by gromero-         ###   ########.fr       */
+/*   Updated: 2023/10/14 12:19:36 by gromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/cub3d.h"
@@ -32,13 +32,13 @@ void	ft_check_parameters(t_game *game)
 	ft_strcmp_ext(game->so, ".png");
 	ft_strcmp_ext(game->ea, ".png");
 	ft_strcmp_ext(game->we, ".png");
-	ft_check_texture_format(game->no, "NO");
-	ft_check_texture_format(game->so, "SO");
-	ft_check_texture_format(game->ea, "EA");
-	ft_check_texture_format(game->we, "WE");
+	ft_check_texture_format(game->no, "NO", game, 1);
+	ft_check_texture_format(game->so, "SO", game, 2);
+	ft_check_texture_format(game->ea, "EA", game, 3);
+	ft_check_texture_format(game->we, "WE", game, 4);
 }
 
-void	ft_check_texture_format(char *s, char *f)
+void	ft_check_texture_format(char *s, char *f, t_game *g, int x)
 {
 	int		i;
 
@@ -51,10 +51,10 @@ void	ft_check_texture_format(char *s, char *f)
 	i++;
 	while (s[i] == ' ' || s[i] == '\t')
 		i++;
-	ft_check_texture(s + i);
+	ft_check_texture((s + i), g, x);
 }
 
-void	ft_check_texture(char *rute)
+void	ft_check_texture(char *rute, t_game *g, int x)
 {
 	char	*cpy;
 	int		fd;
@@ -70,6 +70,25 @@ void	ft_check_texture(char *rute)
 	fd = open(cpy, O_RDONLY);
 	if (fd == -1)
 		ft_error(2);
-	free (cpy);
+	if (x == 1)
+	{
+		free (g->no);
+		g->no = cpy;
+	}
+	else if (x == 2)
+	{
+		free (g->so);
+		g->so = cpy;
+	}
+	else if (x == 3)
+	{
+		free (g->ea);
+		g->ea = cpy;
+	}
+	else if (x == 4)
+	{
+		free (g->we);
+		g->we = cpy;
+	}
 	close(fd);
 }
