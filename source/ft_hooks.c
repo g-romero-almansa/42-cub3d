@@ -1,133 +1,80 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_hooks.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgaudin <lgaudin@student.42malaga.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/14 13:33:12 by lgaudin           #+#    #+#             */
+/*   Updated: 2023/10/14 14:33:51 by lgaudin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
 void	ft_print_screen(t_game *g)
 {
-	int		j;
-	int		i;
-	double	t;
-	char	c;
-	double	k;
-	double	n;
+	t_draw	d;
 
-	i = -1;
-	c = 0;
-	k = 0;
-	while (++i < 1024)
+	d.i = -1;
+	d.c = 0;
+	d.k = 0;
+	while (++d.i < WIDTH)
 	{
-		t = 300 / ft_generate_ray(g, g->angle + ft_get_ray_angle(i), ft_get_ray_angle(i), &c);
-		j = -1;
-		while (++j < 1024)
+		d.t = 300 / ft_generate_ray(g, g->angle + ft_get_ray_angle(d.i),
+				ft_get_ray_angle(d.i), &d.c);
+		d.j = -1;
+		while (++d.j < HEIGHT)
 		{
-			k = (j - (HEIGHT / 2 - (t / 2))) / t * g->t_no->height;
-			n = (g->t_location - (int)g->t_location) * g->t_no->width;
-			if (j <= (HEIGHT / 2 - (t / 2)))
-			{
-				g->img->pixels[WIDTH * j * 4 + i * 4 + 0] = g->c_color[0];
-				g->img->pixels[WIDTH * j * 4 + i * 4 + 1] = g->c_color[1];
-				g->img->pixels[WIDTH * j * 4 + i * 4 + 2] = g->c_color[2];
-				g->img->pixels[WIDTH * j * 4 + i * 4 + 3] = 255;	
-			}
-			else if (j > (HEIGHT / 2 - (t / 2)) && j < (HEIGHT / 2 + (t / 2)))
-			{
-				if (c == 'n')
-				{
-					g->img->pixels[WIDTH * j * 4 + i * 4 + 0] = g->t_no->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 0];
-					g->img->pixels[WIDTH * j * 4 + i * 4 + 1] = g->t_no->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 1];
-					g->img->pixels[WIDTH * j * 4 + i * 4 + 2] = g->t_no->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 2];
-					g->img->pixels[WIDTH * j * 4 + i * 4 + 3] = g->t_no->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 3];
-				}
-				else if (c == 's')
-				{
-					g->img->pixels[WIDTH * j * 4 + i * 4 + 0] = g->t_so->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 0];
-					g->img->pixels[WIDTH * j * 4 + i * 4 + 1] = g->t_so->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 1];
-					g->img->pixels[WIDTH * j * 4 + i * 4 + 2] = g->t_so->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 2];
-					g->img->pixels[WIDTH * j * 4 + i * 4 + 3] = g->t_so->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 3];
-				}
-				else if (c == 'e')
-				{
-					g->img->pixels[WIDTH * j * 4 + i * 4 + 0] = g->t_ea->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 0];
-					g->img->pixels[WIDTH * j * 4 + i * 4 + 1] = g->t_ea->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 1];
-					g->img->pixels[WIDTH * j * 4 + i * 4 + 2] = g->t_ea->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 2];
-					g->img->pixels[WIDTH * j * 4 + i * 4 + 3] = g->t_ea->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 3];
-				}
-				else if (c == 'w')
-				{
-					g->img->pixels[WIDTH * j * 4 + i * 4 + 0] = g->t_we->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 0];
-					g->img->pixels[WIDTH * j * 4 + i * 4 + 1] = g->t_we->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 1];
-					g->img->pixels[WIDTH * j * 4 + i * 4 + 2] = g->t_we->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 2];
-					g->img->pixels[WIDTH * j * 4 + i * 4 + 3] = g->t_we->pixels[g->t_no->width * (int)k * 4 + (int)n * 4 + 3];
-				}
-			}
+			d.k = (d.j - (HEIGHT / 2 - (d.t / 2))) / d.t * g->t_no->height;
+			d.n = (g->t_location - (int)g->t_location) * g->t_no->width;
+			if (d.j <= (HEIGHT / 2 - (d.t / 2)))
+				draw_sky(g, &d);
+			else if (d.j > (HEIGHT / 2 - (d.t / 2)) && d.j < (HEIGHT / 2 + (d.t
+						/ 2)))
+				draw_orientation(g, &d);
 			else
-			{
-				g->img->pixels[WIDTH * j * 4 + i * 4 + 0] = g->f_color[0];
-				g->img->pixels[WIDTH * j * 4 + i * 4 + 1] = g->f_color[1];
-				g->img->pixels[WIDTH * j * 4 + i * 4 + 2] = g->f_color[2];
-				g->img->pixels[WIDTH * j * 4 + i * 4 + 3] = 255;
-			}
+				draw_floor(g, &d);
 		}
 	}
 }
+
+void	turn_left(t_game *g)
+{
+	g->angle += 0.1;
+	if (g->angle > 2 * PI)
+		g->angle -= 2 * PI;
+	g->x_delta = cos(g->angle);
+	g->y_delta = -sin(g->angle);
+}
+
+void	turn_right(t_game *g)
+{
+	g->angle -= 0.1;
+	if (g->angle <= 0)
+		g->angle += 2 * PI;
+	g->x_delta = cos(g->angle);
+	g->y_delta = -sin(g->angle);
+}
+
 void	ft_hook(void *param)
 {
-	t_game			*g;
+	t_game	*g;
 
-	g = (t_game *) param;
+	g = (t_game *)param;
 	if (mlx_is_key_down(g->mlx, MLX_KEY_ESCAPE))
 		exit(-33);
 	if (mlx_is_key_down(g->mlx, MLX_KEY_W))
-	{
-		if (g->only_map[(int)(g->y_pos + g->y_delta * 0.1)][(int)(g->x_pos + g->x_delta * 0.1)] != '1')
-		{
-			g->y_pos += g->y_delta * 0.1;
-			g->x_pos += g->x_delta * 0.1;
-		}
-		ft_print_screen(g);
-	}
-	else if (mlx_is_key_down(g->mlx, MLX_KEY_S))
-	{
-		if (g->only_map[(int)(g->y_pos - g->y_delta * 0.1)][(int)(g->x_pos - g->x_delta * 0.1)] != '1')
-		{
-			g->y_pos -= g->y_delta * 0.1;
-			g->x_pos -= g->x_delta * 0.1;
-		}
-		ft_print_screen(g);
-	}
-	else if (mlx_is_key_down(g->mlx, MLX_KEY_D))
-	{
-		if (g->only_map[(int)(g->y_pos + g->x_delta * 0.1)][(int)(g->x_pos - g->y_delta * 0.1)] != '1')	
-		{
-			g->x_pos -= g->y_delta * 0.1;
-			g->y_pos += g->x_delta * 0.1;
-		}
-		ft_print_screen(g);
-	}
-	else if (mlx_is_key_down(g->mlx, MLX_KEY_A))
-	{
-		if (g->only_map[(int)(g->y_pos - g->x_delta * 0.1)][(int)(g->x_pos + g->y_delta * 0.1)] != '1')
-		{
-			g->x_pos += g->y_delta * 0.1;
-			g->y_pos -= g->x_delta * 0.1;
-		}
-		ft_print_screen(g);
-	}
+		move_forward(g);
+	if (mlx_is_key_down(g->mlx, MLX_KEY_S))
+		move_backward(g);
+	if (mlx_is_key_down(g->mlx, MLX_KEY_A))
+		move_left(g);
+	if (mlx_is_key_down(g->mlx, MLX_KEY_D))
+		move_right(g);
 	if (mlx_is_key_down(g->mlx, MLX_KEY_LEFT))
-	{
-		g->angle += 0.1;
-		if (g->angle > 2 * PI)
-			g->angle -= 2 * PI;
-		g->x_delta = cos(g->angle);
-		g->y_delta = -sin(g->angle);
-		ft_print_screen(g);
-	}
+		turn_left(g);
 	if (mlx_is_key_down(g->mlx, MLX_KEY_RIGHT))
-	{
-		g->angle -= 0.1;
-		if (g->angle <= 0)
-			g->angle += 2 * PI;
-		g->x_delta = cos(g->angle);
-		g->y_delta = -sin(g->angle);
-		ft_print_screen(g);
-	}
+		turn_right(g);
+	ft_print_screen(g);
 }

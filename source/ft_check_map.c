@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gromero- <gromero-@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: lgaudin <lgaudin@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 10:54:54 by gromero-          #+#    #+#             */
-/*   Updated: 2023/10/14 13:59:17 by gromero-         ###   ########.fr       */
+/*   Updated: 2023/10/14 14:44:19 by lgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
 void	ft_check_color(char *s, char c)
@@ -85,7 +86,9 @@ void	ft_check_texture(char *rute, t_game *g, int x)
 	int		i;
 	int		j;
 
-	cpy = malloc (ft_strlen(rute) * sizeof(char));
+	cpy = malloc(ft_strlen(rute) * sizeof(char));
+	if (!cpy)
+		ft_error(1);
 	i = -1;
 	j = -1;
 	while (rute[++i] && rute[i] != ' ' && rute[i] != '\t')

@@ -1,8 +1,8 @@
-NAME			=	cub3d
+NAME			=	cub3D
 ifeq ($(shell uname), Darwin)
 	CFLAGS			=	-Wall -Werror -Wextra
 	INCLUDE			=	-DEBUG=1 -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
-	
+
 else
 	CFLAGS			=	-Wall -Werror -ldl -Wextra
 	INCLUDE			=	-DEBUG=1 -Iinclude -lglfw -L"usr/lib/x86_64-linux-gnu/"
@@ -15,7 +15,8 @@ DIR_SRC			=	./source/
 SRC				= 	$(DIR_SRC)get_next_line.c $(DIR_SRC)get_next_line_utils.c \
 					$(DIR_SRC)main.c $(DIR_SRC)ft_utils.c $(DIR_SRC)ft_read_check.c \
 					$(DIR_SRC)ft_check_map.c $(DIR_SRC)ft_check_map_format.c \
-					$(DIR_SRC)ft_hooks.c $(DIR_SRC)ft_ray.c $(DIR_SRC)ft_get_all_parameters.c
+					$(DIR_SRC)ft_hooks.c $(DIR_SRC)ft_ray.c $(DIR_SRC)ft_get_all_parameters.c \
+					$(DIR_SRC)ft_ray_utils.c $(DIR_SRC)ft_draw_utils.c $(DIR_SRC)ft_movements.c \
 # COLORS
 GREEN = `tput setaf 2`
 RED = `tput setaf 1`

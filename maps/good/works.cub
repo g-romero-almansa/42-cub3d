@@ -1,19 +1,19 @@
-   WE /Users/gromero-/cursus/cub3d/textures/w.png
-NO            				/Users/gromero-/cursus/cub3d/textures/n.png
+   WE textures/w.png
+NO            				textures/n.png
 
 
-SO /Users/gromero-/cursus/cub3d/textures/s.png
+SO textures/s.png
 
 F      17,    38,     64
 
-EA /Users/gromero-/cursus/cub3d/textures/e.png
+EA textures/e.png
 
 
 
 C 218, 234, 235
 
 1111111111111111111111111
-10S0110000100000000000001
+10W0110000100000000000001
 1000110000000000111111001
 1000110000000000110001001
 1000000000100000000001001

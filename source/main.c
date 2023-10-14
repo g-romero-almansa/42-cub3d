@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gromero- <gromero-@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: lgaudin <lgaudin@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 10:54:06 by gromero-          #+#    #+#             */
-/*   Updated: 2023/10/14 13:37:01 by gromero-         ###   ########.fr       */
+/*   Updated: 2023/10/14 14:46:23 by lgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
 void	ft_error(int e)
@@ -73,6 +74,8 @@ void	ft_init_cub3d(t_game *g)
 	g->img = mlx_new_image(g->mlx, WIDTH, HEIGHT);
 	g->f_color = malloc(3 * sizeof(int));
 	g->c_color = malloc(3 * sizeof(int));
+	if (!g->f_color || !g->c_color)
+		ft_error(1);
 }
 
 void	ft_init_textures(t_game *g)
@@ -98,14 +101,9 @@ void	ft_init_textures(t_game *g)
 	g->t_we = mlx_texture_to_image(g->mlx, g->texture);
 }
 
-double	ft_get_ray_angle(int i)
+void check_leaks(void)
 {
-	double	d;
-	double	phi;
-
-	d = (WIDTH / 2) - i - 0.5;
-	phi = asin(d / (sqrt(pow(d, 2) + pow(WIDTH / 2, 2))));
-	return (phi);
+	system("leaks -q cub3d");
 }
 
 int	main(int argc, char **argv)
@@ -114,6 +112,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		ft_error(0);
+	atexit(check_leaks);
 	ft_init_cub3d(&g);
 	ft_strcmp_ext(argv[1], ".cub");
 	ft_read_map(argv[1], &g);
