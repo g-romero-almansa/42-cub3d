@@ -6,7 +6,7 @@
 /*   By: gromero- <gromero-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 10:54:06 by gromero-          #+#    #+#             */
-/*   Updated: 2023/10/14 12:18:50 by gromero-         ###   ########.fr       */
+/*   Updated: 2023/10/14 12:34:04 by gromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/cub3d.h"
@@ -94,15 +94,23 @@ void	ft_leaks()
 void	ft_init_textures(t_game *g)
 {
 	g->texture = mlx_load_png(g->no);
+	if (g->texture == NULL)
+		ft_error(1);
 	g->t_no = mlx_texture_to_image(g->mlx, g->texture);
 	mlx_delete_texture(g->texture);
 	g->texture = mlx_load_png(g->so);
+	if (g->texture == NULL)
+		ft_error(1);
 	g->t_so = mlx_texture_to_image(g->mlx, g->texture);
 	mlx_delete_texture(g->texture);
-	g->texture = g->texture = mlx_load_png(g->ea);
+	g->texture = mlx_load_png(g->ea);
+	if (g->texture == NULL)
+		ft_error(1);
 	g->t_ea = mlx_texture_to_image(g->mlx, g->texture);
 	mlx_delete_texture(g->texture);
 	g->texture = mlx_load_png(g->we);
+	if (g->texture == NULL)
+		ft_error(1);
 	g->t_we = mlx_texture_to_image(g->mlx, g->texture);
 }
 
